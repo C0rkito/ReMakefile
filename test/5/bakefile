@@ -1,0 +1,31 @@
+nom = Test #TestCommentaire
+JVM = java
+JVMFLAGS = -ea -classpath
+JC = javac
+JCFLAGS = -encoding UTF-8  -implicit:none
+
+
+
+#TestCommentaire2
+
+${nom}.class: ${nom}.java ${nom}2.class  
+	$(JC) $(JCFLAGS) ${nom}.java
+	
+${nom}2.class:${nom}2.java ${nom}3.class ${nom}.class  
+	$(JC) $(JCFLAGS) ${nom}2.java
+	
+${nom}3.class: ${nom}3.java ${nom}4.class
+	$(JC) $(JCFLAGS) ${nom}3.java
+
+${nom}4.class: ${nom}4.java
+	$(JC) $(JCFLAGS)issue ${nom}4.java 
+	
+	
+.PHONY: run clean 
+
+
+run:
+	touch jairun
+
+clean:
+	rm -rf *.class
